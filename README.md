@@ -15,6 +15,7 @@ A collection of composable libraries that share a common philosophy: **no heap, 
 │  microfsm ── state machines     microres ── retry + breaker
 │  microconf── flash config       microcbor── CBOR serialization
 │  micoring ── ISR-safe ring buf  iotspool ── MQTT persistence
+│  microtimer─ software timers    microbus ── event pub/sub
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -27,8 +28,25 @@ A collection of composable libraries that share a common philosophy: **no heap, 
 | [microsh](https://github.com/Vanderhell/microsh) | Debug shell with history + tab completion | 43 |
 | [microcbor](https://github.com/Vanderhell/microcbor) | Minimal CBOR encoder/decoder (RFC 8949) | 43 |
 | [micoring](https://github.com/Vanderhell/micoring) | Generic lock-free SPSC ring buffer | 33 |
+| [microtimer](https://github.com/Vanderhell/microtimer) | Software timer manager — oneshot + periodic, drift-corrected | 25 |
+| [microbus](https://github.com/Vanderhell/microbus) | Event pub/sub bus — topic-based, ISR-safe deferred queue | 34 |
 
-**[→ micro-toolkit](https://github.com/Vanderhell/micro-toolkit)** — architecture overview, design philosophy, and a complete example project using all 7 libraries together
+**[→ micro-toolkit](https://github.com/Vanderhell/micro-toolkit)** — architecture overview, design philosophy, and a complete example project
+
+---
+
+### 🔗 embedded-guard — Safety, monitoring & recovery
+
+Libraries that bridge the toolkit together: boot orchestration, health monitoring, watchdogs, panic handling, OTA updates.
+
+| Library | What it does | Tests |
+|---------|-------------|-------|
+| [microhealth](https://github.com/Vanderhell/microhealth) | Runtime health monitor — collect metrics, dual thresholds, edge-triggered alerts | 32 |
+| [microwdt](https://github.com/Vanderhell/microwdt) | Per-task software watchdog — kick-based liveness, OK → LATE → STARVED escalation | 33 |
+| [microboot](https://github.com/Vanderhell/microboot) | Boot & recovery manager — crash loop detection, proven boot pattern, boot reason tracking | 32 |
+| [microassert](https://github.com/Vanderhell/microassert) | Unified panic system — hook chain (log → dump → reset), four severities, re-entrancy guard | 33 |
+| [microota](https://github.com/Vanderhell/microota) | OTA firmware update — chunked download, CRC verify, version check, commit/rollback | 27 |
+| [microflash](https://github.com/Vanderhell/microflash) | Unified flash abstraction — partitions, NOR/EEPROM/FRAM/RAM, erase-write, wear stats | 33 |
 
 ---
 
@@ -44,6 +62,8 @@ Small utilities for writing safer, more debuggable embedded C code.
 | [defer](https://github.com/Vanderhell/defer) | Automatic resource cleanup for C via `DEFER()` macro — single header, GCC/Clang/ARM |
 | [cguard](https://github.com/Vanderhell/cguard) | Scope guards and result types for C — auto cleanup (free, fclose, unlock), header-only |
 | [safemath](https://github.com/Vanderhell/safemath) | Overflow-checked add, mul, align and buffer sizing — single header, C99 |
+| [microcrypt](https://github.com/Vanderhell/microcrypt) | SHA-256, HMAC-SHA256, AES-128 ECB/CBC — NIST/RFC test vectors, zero dependencies |
+| [microtest](https://github.com/Vanderhell/microtest) | Single-header test framework — suites, fixtures, filtering, color output, 16 assertion macros |
 
 ---
 
