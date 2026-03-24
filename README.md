@@ -76,6 +76,7 @@ Desktop tools and firmware for real-world industrial communication.
 | [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs — live dashboard, history charts, SQLite archive |
 | [RTULogSuite](https://github.com/Vanderhell/RTULogSuite) | Complete Modbus RTU logging toolchain — ESP32 firmware + Windows visualization app |
 | [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue — survives power loss, C99, zero dependencies |
+| [uMesh](https://github.com/Vanderhell/uMesh) | Lightweight mesh networking stack for ESP32 over raw 802.11 — multi-hop routing, encrypted transport, compact custom protocol, still in active development |
 
 ---
 
