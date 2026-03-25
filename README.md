@@ -67,6 +67,15 @@ Small utilities for writing safer, more debuggable embedded C code.
 
 ---
 
+### 📦 Binary formats & data engines
+
+| Project | Description |
+|---------|-------------|
+| [num8](https://github.com/Vanderhell/num8) | O(1) membership engine for 8-digit numbers — 12.5 MB fixed bitset, 124M lookups/s, C99, zero dependencies |
+| [IronFamily.FileEngine](https://github.com/Vanderhell/IronFamily.FileEngine) | Binary IoT file engines — ICFG (schema-validated config), ILOG (structured append log), IUPD (firmware update package) — .NET + native C |
+
+---
+
 ### 🏭 Industrial IoT & protocols
 
 Desktop tools and firmware for real-world industrial communication.
