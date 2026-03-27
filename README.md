@@ -86,6 +86,7 @@ Desktop tools and firmware for real-world industrial communication.
 | [RTULogSuite](https://github.com/Vanderhell/RTULogSuite) | Complete Modbus RTU logging toolchain — ESP32 firmware + Windows visualization app |
 | [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue — survives power loss, C99, zero dependencies |
 | [uMesh](https://github.com/Vanderhell/uMesh) | Lightweight mesh networking stack for ESP32 over raw 802.11 — multi-hop routing, encrypted transport, compact custom protocol, still in active development |
+| [num8lup](https://github.com/Vanderhell/num8-lup) | Low-bandwidth update propagation protocol for NUM8 datasets — async sender/receiver split, delta streams over LoRa-style constrained links, C99 |
 
 ---
 
