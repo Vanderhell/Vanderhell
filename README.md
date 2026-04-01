@@ -23,7 +23,7 @@ A complete embedded database stack for microcontrollers. From storage to encrypt
 | [microdb](https://github.com/Vanderhell/microdb) | Three-engine embedded database — KV with TTL, time-series ring buffers, relational tables. Single malloc, WAL persistence, ESP32 HAL. | 175+ |
 | [microcodec](https://github.com/Vanderhell/microcodec) | Five compression algorithms for sensor data — RLE, varint, delta, LZSS, static Huffman. Zero allocations. | 140+ |
 | [microdb_secure](https://github.com/Vanderhell/microdb_secure) | Transparent encryption wrapper for microdb — AES-128-CBC + HMAC-SHA256 per record, tamper detection. | 81 |
-| [microdb_cli](https://github.com/Vanderhell/microdb_cli) | Terminal inspector for microdb files — TUI, hex dump, export/import JSON/CSV, live watch, encrypted DB support. | — |
+| [microdb_cli](https://github.com/Vanderhell/microdb_cli) | Terminal inspector for microdb files — TUI, hex dump, export/import JSON/CSV, live watch, encrypted DB support. | 7 |
 
 ---
 
