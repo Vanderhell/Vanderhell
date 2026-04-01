@@ -5,6 +5,28 @@ I write small, focused C/C# libraries that solve real problems — zero dependen
 
 ---
 
+### 🗄️ microdb ecosystem — Embedded database stack
+
+A complete embedded database stack for microcontrollers. From storage to encryption to a terminal inspector — all in C99, all zero dependencies, all composable.
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  microdb        ── three-engine database (KV, TS, REL)      │
+│  microcodec     ── compression (RLE, delta, LZSS, Huffman)  │
+│  microdb_secure ── AES-128-CBC + HMAC-SHA256 encryption     │
+│  microdb_cli    ── terminal inspector and browser           │
+└─────────────────────────────────────────────────────────────┘
+```
+
+| Project | What it does | Tests |
+|---------|-------------|-------|
+| [microdb](https://github.com/Vanderhell/microdb) | Three-engine embedded database — KV with TTL, time-series ring buffers, relational tables. Single malloc, WAL persistence, ESP32 HAL. | 175+ |
+| [microcodec](https://github.com/Vanderhell/microcodec) | Five compression algorithms for sensor data — RLE, varint, delta, LZSS, static Huffman. Zero allocations. | 140+ |
+| [microdb_secure](https://github.com/Vanderhell/microdb_secure) | Transparent encryption wrapper for microdb — AES-128-CBC + HMAC-SHA256 per record, tamper detection. | 81 |
+| [microdb_cli](https://github.com/Vanderhell/microdb_cli) | Terminal inspector for microdb files — TUI, hex dump, export/import JSON/CSV, live watch, encrypted DB support. | — |
+
+---
+
 ### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
 A collection of composable libraries that share a common philosophy: **no heap, no dependencies, no code generation — just `#include` and go.**
@@ -85,7 +107,7 @@ Desktop tools and firmware for real-world industrial communication.
 | [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs — live dashboard, history charts, SQLite archive |
 | [RTULogSuite](https://github.com/Vanderhell/RTULogSuite) | Complete Modbus RTU logging toolchain — ESP32 firmware + Windows visualization app |
 | [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue — survives power loss, C99, zero dependencies |
-| [uMesh](https://github.com/Vanderhell/uMesh) | Lightweight mesh networking stack for ESP32 over raw 802.11 — multi-hop routing, encrypted transport, compact custom protocol, still in active development |
+| [uMesh](https://github.com/Vanderhell/uMesh) | Lightweight mesh networking stack for ESP32 over raw 802.11 — multi-hop routing, encrypted transport, compact custom protocol |
 | [num8lup](https://github.com/Vanderhell/num8-lup) | Low-bandwidth update propagation protocol for NUM8 datasets — async sender/receiver split, delta streams over LoRa-style constrained links, C99 |
 
 ---
