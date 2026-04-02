@@ -85,6 +85,7 @@ Small utilities for writing safer, more debuggable embedded C code.
 | [cguard](https://github.com/Vanderhell/cguard) | Scope guards and result types for C — auto cleanup (free, fclose, unlock), header-only |
 | [safemath](https://github.com/Vanderhell/safemath) | Overflow-checked add, mul, align and buffer sizing — single header, C99 |
 | [microcrypt](https://github.com/Vanderhell/microcrypt) | SHA-256, HMAC-SHA256, AES-128 ECB/CBC — NIST/RFC test vectors, zero dependencies |
+| [microdh](https://github.com/Vanderhell/microdh) | Minimal X25519 (Curve25519) key exchange for embedded systems — RFC 7748, zero dependencies, zero allocations |
 | [microtest](https://github.com/Vanderhell/microtest) | Single-header test framework — suites, fixtures, filtering, color output, 16 assertion macros |
 
 ---
