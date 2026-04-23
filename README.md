@@ -7,6 +7,8 @@ I write small, focused C/C# libraries that solve real problems — zero dependen
 
 ### 🗄️ microdb — Deterministic embedded database for MCU/edge systems
 
+![microdb banner](https://github.com/Vanderhell/microdb/raw/refs/heads/master/docs/banner.svg)
+
 A compact embedded database written in **C99** for firmware and small edge runtimes. `microdb` combines **key-value**, **time-series**, and **small relational tables** behind one API surface, with **a single allocation at init**, **fixed RAM budgeting**, and an optional **WAL-backed** persistence path for **power-fail recovery**.
 
 It is designed for embedded products that need predictable memory use, durable state, and a much smaller integration surface than a general SQL database.
