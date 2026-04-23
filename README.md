@@ -5,6 +5,20 @@ I write small, focused C/C# libraries that solve real problems — zero dependen
 
 ---
 
+### 🗄️ microdb — Deterministic embedded database for MCU/edge systems
+
+A compact embedded database written in **C99** for firmware and small edge runtimes. `microdb` combines **key-value**, **time-series**, and **small relational tables** behind one API surface, with **a single allocation at init**, **fixed RAM budgeting**, and an optional **WAL-backed** persistence path for **power-fail recovery**.
+
+It is designed for embedded products that need predictable memory use, durable state, and a much smaller integration surface than a general SQL database.
+
+**Current scope:** KV with optional TTL, time-series streams with retention/overflow policies, and fixed-schema relational tables with one indexed column per table.
+
+**Licensing:** the current repository is the **MIT-licensed Free Edition**. A paid extension, **microdb_pro**, is currently in development and is planned as a separate commercial add-on.
+
+| [microdb](https://github.com/Vanderhell/microdb) | Deterministic embedded database for microcontrollers — KV + time-series + small relational tables, single allocation at init, optional WAL-backed persistence, C99 |
+
+---
+
 ### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
 A collection of composable libraries that share a common philosophy: **no heap, no dependencies, no code generation — just `#include` and go.**
