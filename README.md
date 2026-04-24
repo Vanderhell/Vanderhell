@@ -15,8 +15,9 @@ It is designed for embedded products that need predictable memory use, durable s
 **Current scope:** KV with optional TTL, time-series streams with retention/overflow policies, and fixed-schema relational tables with one indexed column per table.
 **Licensing:** the current repository is the **MIT-licensed Free Edition**. A paid extension, **loxdb_pro**, is currently in development and is planned as a separate commercial add-on.
 
-| [loxdb](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for microcontrollers — KV + time-series + small relational tables, single allocation at init, optional WAL-backed persistence, C99 |
----
+| Project | Description | Tech |
+|---|---|---|
+| **loxdb** | Deterministic embedded database for microcontrollers. Provides key-value storage, time-series data, and small relational tables with a single allocation at initialization and optional WAL-backed persistence. | C99 |
 
 ### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
