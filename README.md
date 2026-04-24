@@ -17,7 +17,7 @@ It is designed for embedded products that need predictable memory use, durable s
 
 | Project | Description | Tech |
 |---|---|---|
-| **loxdb** | Deterministic embedded database for microcontrollers. Provides key-value storage, time-series data, and small relational tables with a single allocation at initialization and optional WAL-backed persistence. | C99 |
+| [**loxdb**](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. Supports key-value records, time-series streams, and small relational-style tables, using a single allocation at initialization and optional WAL-backed persistence. | C99 |
 
 ### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
