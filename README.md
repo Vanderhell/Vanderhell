@@ -9,15 +9,32 @@ I write small, focused C/C# libraries that solve real problems — zero dependen
 
 ![loxdb banner](https://github.com/Vanderhell/loxdb/raw/refs/heads/master/docs/banner.svg)
 
-A compact embedded database written in **C99** for firmware and small edge runtimes. `loxdb` combines **key-value**, **time-series**, and **small relational tables** behind one API surface, with **a single allocation at init**, **fixed RAM budgeting**, and an optional **WAL-backed** persistence path for **power-fail recovery**.
+A compact embedded database written in **C99** for firmware and small edge runtimes. `loxdb` combines **key-value**, **time-series**, and **small relational tables** behind one API surface, with **a single allocation at init**, **fixed RAM budgeting**, zero external dependencies, and an optional **WAL-backed** persistence path for **power-fail recovery**.
+
 It is designed for embedded products that need predictable memory use, durable state, and a much smaller integration surface than a general SQL database.
 
-**Current scope:** KV with optional TTL, time-series streams with retention/overflow policies, and fixed-schema relational tables with one indexed column per table.
-**Licensing:** the current repository is the **MIT-licensed Free Edition**. A paid extension, **loxdb_pro**, is currently in development and is planned as a separate commercial add-on.
+**Current scope:** KV with optional TTL, time-series streams with retention/overflow policies, and fixed-schema relational tables with one indexed column per table.  
+**Licensing:** the current repository is the **MIT-licensed Free Edition**. A paid extension, **loxdb_pro**, is planned as a separate commercial add-on. Public API-level documentation for the PRO edition is maintained in [`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs).
+
+---
+
+### 🛡️ loxguard — Guard Blocks for embedded C firmware
+
+`loxguard` is a lightweight **C99 guard-runtime** for embedded firmware. It introduces **Guard Blocks** and **Checked Guard Blocks**: explicit execution boundaries around risky code such as parsers, protocol handlers, optional modules, or recovery-sensitive routines.
+
+Instead of only failing with an assert or watchdog reset, `loxguard` turns failures into structured runtime evidence: event records, policy decisions, local blackbox data, reports, and optional persistence hooks.
+
+**Current scope:** checked span/arena primitives, Guard Block lifecycle events, failure reporting, policy decisions, blackbox evidence, CSV/KV export/import, host persistence integration, and optional ecosystem adapters.
+
+It is not a replacement for full memory safety, RTOS supervision, or safety certification. Its value is narrower and practical: making unsafe execution states easier to detect, record, and react to in small embedded C systems.
+
+---
 
 | Project | Description | Tech |
 |---|---|---|
 | [**loxdb**](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. Supports key-value records, time-series streams, and small relational-style tables, using a single allocation at initialization and optional WAL-backed persistence. | C99 |
+| [**loxdb_pro_docs**](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the planned commercial `loxdb_pro` extension. Documents integration-facing contracts, usage limits, error-handling guidance, release notes, and roadmap without exposing proprietary implementation details. | Docs / C API contracts |
+| [**loxguard**](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for wrapping risky code in supervised execution boundaries. Provides Guard Blocks, checked span/arena primitives, structured failure events, policy decisions, blackbox evidence, reports, and optional persistence/adapters. | C99 |
 
 ### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
