@@ -1,139 +1,193 @@
 ## Hi, I'm Vanderhell 👋
 
-Embedded systems developer focused on **industrial IoT**, Modbus, MQTT, and building reliable firmware.
-I write small, focused C/C# libraries that solve real problems — zero dependencies, zero allocations, tested.
+Industrial software and embedded systems developer focused on reliable tools for production, firmware, diagnostics, and edge systems.
+
+I build small, focused C/C#/C++ libraries and applications for real-world use: embedded storage, runtime safety, industrial communication, monitoring, data acquisition, and practical AI-assisted development workflows.
+
+My usual design bias:
+
+- predictable behavior
+- small integration surface
+- clear failure modes
+- zero or minimal dependencies
+- tests before claims
+- tools that solve real problems, not demo problems
 
 ---
+
+## Main projects
 
 ### 🗄️ loxdb — Deterministic embedded database for MCU/edge systems
 
 ![loxdb banner](https://github.com/Vanderhell/loxdb/raw/refs/heads/master/docs/banner.svg)
 
-A compact embedded database written in **C99** for firmware and small edge runtimes. `loxdb` combines **key-value**, **time-series**, and **small relational tables** behind one API surface, with **a single allocation at init**, **fixed RAM budgeting**, zero external dependencies, and an optional **WAL-backed** persistence path for **power-fail recovery**.
+[`loxdb`](https://github.com/Vanderhell/loxdb) is a compact embedded database written in **C99** for firmware and small edge runtimes.
 
-It is designed for embedded products that need predictable memory use, durable state, and a much smaller integration surface than a general SQL database.
+It combines three storage models behind one API surface:
 
-**Current scope:** KV with optional TTL, time-series streams with retention/overflow policies, and fixed-schema relational tables with one indexed column per table.  
-**Licensing:** the current repository is the **MIT-licensed Free Edition**. A paid extension, **loxdb_pro**, is planned as a separate commercial add-on. Public API-level documentation for the PRO edition is maintained in [`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs).
+- **KV** for configuration, cache entries, and TTL-backed state
+- **Time-series** for sensor samples and rolling telemetry
+- **Relational fixed-schema tables** for small indexed structured data
+
+Core design:
+
+- one allocation at `lox_init()`
+- fixed RAM budgeting
+- zero external dependencies
+- RAM-only or storage-backed operation
+- optional WAL-backed persistence and recovery
+- embedded-first storage HAL
+
+`loxdb` is not a tiny SQLite clone. SQLite is excellent, but targets a different operating point. `loxdb` is intentionally narrower: deterministic storage for constrained firmware, dataloggers, controllers, and small edge runtimes where predictable memory and a small integration surface matter more than SQL features.
+
+**License:** MIT open-source core.  
+**Commercial extension:** [`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs) contains public API-level documentation for the planned/commercial PRO module set.
+
+---
+
+### 🧩 loxdb_pro — Commercial production modules around loxdb core
+
+[`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs) documents the public integration-facing API for the commercial `loxdb_pro` layer.
+
+The PRO layer is designed for embedded products that need more than storage:
+
+- security and integrity
+- runtime safety validation
+- metrics, logging, monitoring, and alerting
+- policy gates, quotas, retention, and scheduling
+- backup and schema migration
+- replication and transport framing
+- OTA planning and rollback hooks
+- CLI tooling
+- optional SD card and NAND/FTL adapters
+
+The public repository intentionally contains documentation only. The implementation and proprietary validation procedures are not published there.
 
 ---
 
 ### 🛡️ loxguard — Guard Blocks for embedded C firmware
 
-`loxguard` is a lightweight **C99 guard-runtime** for embedded firmware. It introduces **Guard Blocks** and **Checked Guard Blocks**: explicit execution boundaries around risky code such as parsers, protocol handlers, optional modules, or recovery-sensitive routines.
+[`loxguard`](https://github.com/Vanderhell/loxguard) is a lightweight **C99 guard-runtime** for embedded C.
 
-Instead of only failing with an assert or watchdog reset, `loxguard` turns failures into structured runtime evidence: event records, policy decisions, local blackbox data, reports, and optional persistence hooks.
+It introduces **Guard Blocks** and **Checked Guard Blocks**: explicit execution boundaries around risky code such as parsers, protocol handlers, optional modules, and recovery-sensitive routines.
 
-**Current scope:** checked span/arena primitives, Guard Block lifecycle events, failure reporting, policy decisions, blackbox evidence, CSV/KV export/import, host persistence integration, and optional ecosystem adapters.
+Instead of only failing with an assert or watchdog reset, `loxguard` turns failures into structured runtime evidence:
 
-It is not a replacement for full memory safety, RTOS supervision, or safety certification. Its value is narrower and practical: making unsafe execution states easier to detect, record, and react to in small embedded C systems.
+- lifecycle events
+- policy decisions
+- blackbox records
+- reports
+- CSV/KV import-export paths
+- optional persistence and ecosystem adapters
+
+Current scope includes checked span/arena primitives, Guard Block lifecycle tracking, failure reporting, policy decisions, local blackbox evidence, and host-tested integration paths.
+
+`loxguard` does not claim full memory safety for arbitrary C code and is not a safety-certified framework. Its value is narrower: make unsafe execution states easier to detect, record, and react to in small embedded C systems.
 
 ---
+
+## Project map
 
 | Project | Description | Tech |
 |---|---|---|
-| [**loxdb**](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. Supports key-value records, time-series streams, and small relational-style tables, using a single allocation at initialization and optional WAL-backed persistence. | C99 |
-| [**loxdb_pro_docs**](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the planned commercial `loxdb_pro` extension. Documents integration-facing contracts, usage limits, error-handling guidance, release notes, and roadmap without exposing proprietary implementation details. | Docs / C API contracts |
-| [**loxguard**](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for wrapping risky code in supervised execution boundaries. Provides Guard Blocks, checked span/arena primitives, structured failure events, policy decisions, blackbox evidence, reports, and optional persistence/adapters. | C99 |
-
-### 🔧 micro-toolkit — Modular C99 libraries for embedded systems
-
-A collection of composable libraries that share a common philosophy: **no heap, no dependencies, no code generation — just `#include` and go.**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  microsh ─── debug shell        microlog ── structured logging
-│  microfsm ── state machines     microres ── retry + breaker
-│  microconf── flash config       microcbor── CBOR serialization
-│  micoring ── ISR-safe ring buf  iotspool ── MQTT persistence
-│  microtimer─ software timers    microbus ── event pub/sub
-└─────────────────────────────────────────────────────────────┘
-```
-
-| Library | What it does | Tests |
-|---------|-------------|-------|
-| [microfsm](https://github.com/Vanderhell/microfsm) | Table-driven finite state machine engine | 36 |
-| [microres](https://github.com/Vanderhell/microres) | Retry with backoff, circuit breaker, rate limiter | 41 |
-| [microconf](https://github.com/Vanderhell/microconf) | Schema-driven config with CRC + flash storage | 40 |
-| [microlog](https://github.com/Vanderhell/microlog) | Multi-backend structured logging | 33 |
-| [microsh](https://github.com/Vanderhell/microsh) | Debug shell with history + tab completion | 43 |
-| [microcbor](https://github.com/Vanderhell/microcbor) | Minimal CBOR encoder/decoder (RFC 8949) | 43 |
-| [micoring](https://github.com/Vanderhell/micoring) | Generic lock-free SPSC ring buffer | 33 |
-| [microtimer](https://github.com/Vanderhell/microtimer) | Software timer manager — oneshot + periodic, drift-corrected | 25 |
-| [microbus](https://github.com/Vanderhell/microbus) | Event pub/sub bus — topic-based, ISR-safe deferred queue | 34 |
-
-**[→ micro-toolkit](https://github.com/Vanderhell/micro-toolkit)** — architecture overview, design philosophy, and a complete example project
+| [loxdb](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. KV, time-series, and fixed-schema relational tables behind one C99 API. | C99 |
+| [loxdb_pro_docs](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the commercial `loxdb_pro` module set. | Docs / C API contracts |
+| [loxguard](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for supervised execution boundaries, failure events, policy decisions, and blackbox evidence. | C99 |
+| [micro-toolkit](https://github.com/Vanderhell/micro-toolkit) | Collection of small composable embedded C99 libraries. | C99 |
+| [embedded-guard libraries](#embedded-guard--safety-monitoring--recovery) | Health, watchdog, boot, panic, OTA, and flash support libraries. | C99 |
+| [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs. | C# |
+| [RTULogSuite](https://github.com/Vanderhell/RTULogSuite) | Modbus RTU logging toolchain: ESP32 firmware + Windows visualization app. | C++ / C# |
+| [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue for embedded systems. | C99 |
 
 ---
 
-### 🔗 embedded-guard — Safety, monitoring & recovery
+## 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
-Libraries that bridge the toolkit together: boot orchestration, health monitoring, watchdogs, panic handling, OTA updates.
+A collection of composable libraries sharing the same philosophy:
 
-| Library | What it does | Tests |
-|---------|-------------|-------|
-| [microhealth](https://github.com/Vanderhell/microhealth) | Runtime health monitor — collect metrics, dual thresholds, edge-triggered alerts | 32 |
-| [microwdt](https://github.com/Vanderhell/microwdt) | Per-task software watchdog — kick-based liveness, OK → LATE → STARVED escalation | 33 |
-| [microboot](https://github.com/Vanderhell/microboot) | Boot & recovery manager — crash loop detection, proven boot pattern, boot reason tracking | 32 |
-| [microassert](https://github.com/Vanderhell/microassert) | Unified panic system — hook chain (log → dump → reset), four severities, re-entrancy guard | 33 |
-| [microota](https://github.com/Vanderhell/microota) | OTA firmware update — chunked download, CRC verify, version check, commit/rollback | 27 |
-| [microflash](https://github.com/Vanderhell/microflash) | Unified flash abstraction — partitions, NOR/EEPROM/FRAM/RAM, erase-write, wear stats | 33 |
+> no heap, no dependencies, no code generation — just `#include` and go.
 
----
+### Toolkit modules
 
-### 🛡️ Bare-metal safety & diagnostics
-
-Small utilities for writing safer, more debuggable embedded C code.
-
-| Project | Description |
-|---------|-------------|
-| [panicdump](https://github.com/Vanderhell/panicdump) | Crash dump library for Cortex-M3/M4 — capture on fault, survive reboot, decode offline |
-| [MCU-Malloc-Tracker](https://github.com/Vanderhell/MCU-Malloc-Tracker) | Deterministic heap diagnostics for bare-metal MCUs — malloc/free tracking, CRC snapshots |
-| [nvlog](https://github.com/Vanderhell/nvlog) | Power-loss safe append log for FRAM/EEPROM/NOR flash — no heap, no filesystem, 186 tests |
-| [defer](https://github.com/Vanderhell/defer) | Automatic resource cleanup for C via `DEFER()` macro — single header, GCC/Clang/ARM |
-| [cguard](https://github.com/Vanderhell/cguard) | Scope guards and result types for C — auto cleanup (free, fclose, unlock), header-only |
-| [safemath](https://github.com/Vanderhell/safemath) | Overflow-checked add, mul, align and buffer sizing — single header, C99 |
-| [microcrypt](https://github.com/Vanderhell/microcrypt) | SHA-256, HMAC-SHA256, AES-128 ECB/CBC — NIST/RFC test vectors, zero dependencies |
-| [microdh](https://github.com/Vanderhell/microdh) | Minimal X25519 (Curve25519) key exchange for embedded systems — RFC 7748, zero dependencies, zero allocations |
-| [microtest](https://github.com/Vanderhell/microtest) | Single-header test framework — suites, fixtures, filtering, color output, 16 assertion macros |
+- [`microsh`](https://github.com/Vanderhell/microsh) — debug shell with history and tab completion.
+- [`microlog`](https://github.com/Vanderhell/microlog) — multi-backend structured logging.
+- [`microfsm`](https://github.com/Vanderhell/microfsm) — table-driven finite state machine engine.
+- [`microres`](https://github.com/Vanderhell/microres) — retry with backoff, circuit breaker, and rate limiter.
+- [`microconf`](https://github.com/Vanderhell/microconf) — schema-driven config with CRC and flash storage.
+- [`microcbor`](https://github.com/Vanderhell/microcbor) — minimal CBOR encoder/decoder.
+- [`micoring`](https://github.com/Vanderhell/micoring) — generic lock-free SPSC ring buffer.
+- [`microtimer`](https://github.com/Vanderhell/microtimer) — software timer manager for one-shot and periodic timers.
+- [`microbus`](https://github.com/Vanderhell/microbus) — topic-based event/pub-sub bus.
+- [`iotspool`](https://github.com/Vanderhell/iotspool) — persistent MQTT store-and-forward queue.
 
 ---
 
-### 📦 Binary formats & data engines
+## 🔗 embedded-guard — Safety, monitoring & recovery
 
-| Project | Description |
-|---------|-------------|
-| [num8](https://github.com/Vanderhell/num8) | O(1) membership engine for 8-digit numbers — 12.5 MB fixed bitset, 124M lookups/s, C99, zero dependencies |
-| [IronFamily.FileEngine](https://github.com/Vanderhell/IronFamily.FileEngine) | Binary IoT file engines — ICFG (schema-validated config), ILOG (structured append log), IUPD (firmware update package) — .NET + native C |
+Libraries that bridge embedded diagnostics, monitoring, recovery, and firmware lifecycle.
+
+- [`microhealth`](https://github.com/Vanderhell/microhealth) — runtime health monitor with metrics and threshold-based alerts.
+- [`microwdt`](https://github.com/Vanderhell/microwdt) — per-task software watchdog with escalation states.
+- [`microboot`](https://github.com/Vanderhell/microboot) — boot and recovery manager with crash-loop detection.
+- [`microassert`](https://github.com/Vanderhell/microassert) — unified panic system with hook chain and severity levels.
+- [`microota`](https://github.com/Vanderhell/microota) — OTA update flow with chunking, CRC, version checks, commit/rollback.
+- [`microflash`](https://github.com/Vanderhell/microflash) — unified flash abstraction for NOR/EEPROM/FRAM/RAM-like storage.
 
 ---
 
-### 🏭 Industrial IoT & protocols
+## 🛡️ Bare-metal safety & diagnostics
+
+Small utilities for writing safer and more debuggable embedded C.
+
+- [`panicdump`](https://github.com/Vanderhell/panicdump) — crash dump library for Cortex-M3/M4: capture on fault, survive reboot, decode offline.
+- [`MCU-Malloc-Tracker`](https://github.com/Vanderhell/MCU-Malloc-Tracker) — deterministic heap diagnostics for bare-metal MCUs.
+- [`nvlog`](https://github.com/Vanderhell/nvlog) — power-loss safe append log for FRAM/EEPROM/NOR flash.
+- [`defer`](https://github.com/Vanderhell/defer) — automatic resource cleanup for C via `DEFER()` macro.
+- [`cguard`](https://github.com/Vanderhell/cguard) — scope guards and result types for C.
+- [`safemath`](https://github.com/Vanderhell/safemath) — overflow-checked arithmetic and buffer sizing helpers.
+- [`microcrypt`](https://github.com/Vanderhell/microcrypt) — SHA-256, HMAC-SHA256, AES-128 ECB/CBC.
+- [`microdh`](https://github.com/Vanderhell/microdh) — minimal X25519 key exchange for embedded systems.
+- [`microtest`](https://github.com/Vanderhell/microtest) — single-header C test framework.
+
+---
+
+## 📦 Binary formats & data engines
+
+- [`num8`](https://github.com/Vanderhell/num8) — O(1) membership engine for 8-digit numbers using a fixed bitset.
+- [`IronFamily.FileEngine`](https://github.com/Vanderhell/IronFamily.FileEngine) — binary IoT file engines: config, structured logs, and firmware update package formats.
+
+---
+
+## 🏭 Industrial IoT & protocols
 
 Desktop tools and firmware for real-world industrial communication.
 
-| Project | Description |
-|---------|-------------|
-| [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs — live dashboard, history charts, SQLite archive |
-| [RTULogSuite](https://github.com/Vanderhell/RTULogSuite) | Complete Modbus RTU logging toolchain — ESP32 firmware + Windows visualization app |
-| [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue — survives power loss, C99, zero dependencies |
-| [uMesh](https://github.com/Vanderhell/uMesh) | Lightweight mesh networking stack for ESP32 over raw 802.11 — multi-hop routing, encrypted transport, compact custom protocol |
-| [num8lup](https://github.com/Vanderhell/num8-lup) | Low-bandwidth update propagation protocol for NUM8 datasets — async sender/receiver split, delta streams over LoRa-style constrained links, C99 |
+- [`IOBusMonitor`](https://github.com/Vanderhell/IOBusMonitor) — multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs.
+- [`RTULogSuite`](https://github.com/Vanderhell/RTULogSuite) — complete Modbus RTU logging toolchain: ESP32 firmware + Windows visualization.
+- [`iotspool`](https://github.com/Vanderhell/iotspool) — persistent store-and-forward MQTT queue.
+- [`uMesh`](https://github.com/Vanderhell/uMesh) — lightweight mesh networking stack for ESP32 over raw 802.11.
+- [`num8-lup`](https://github.com/Vanderhell/num8-lup) — low-bandwidth update propagation protocol for constrained links.
 
 ---
 
-### 🖥️ Desktop & .NET
+## 🖥️ Desktop & .NET
 
-| Project | Description |
-|---------|-------------|
-| [MultiGpuHelper](https://github.com/Vanderhell/MultiGpuHelper) | C# library for scheduling compute workloads across multiple GPUs — device discovery, VRAM budgeting, policy-based selection |
-| [CrudFramework](https://github.com/Vanderhell/CrudFramework) | Lightweight CRUD framework for .NET (EF Core + SQLite/SQL Server) — validation, filtering, paging, WPF-ready bindings |
+- [`MultiGpuHelper`](https://github.com/Vanderhell/MultiGpuHelper) — C# library for scheduling compute workloads across multiple GPUs.
+- [`CrudFramework`](https://github.com/Vanderhell/CrudFramework) — lightweight CRUD framework for .NET, EF Core, SQLite/SQL Server, and WPF-ready bindings.
 
 ---
 
-### ⚡ Hardware projects
+## ⚡ Hardware projects
 
-| Project | Description |
-|---------|-------------|
-| [securebox-hw](https://github.com/Vanderhell/securebox-hw) | Secure hardware password manager on ESP32-S3 with external encrypted storage |
-| [Pragotron-Controller](https://github.com/Vanderhell/Pragotron-Controller) | Minute-impulse controller for a Pragotron stepper clock — ESP32, DS1307 RTC, H-bridge |
+- [`securebox-hw`](https://github.com/Vanderhell/securebox-hw) — secure hardware password manager concept on ESP32-S3 with external encrypted storage.
+- [`Pragotron-Controller`](https://github.com/Vanderhell/Pragotron-Controller) — minute-impulse controller for a Pragotron stepper clock.
+
+---
+
+## Focus
+
+I am interested in embedded reliability, deterministic storage, firmware diagnostics, industrial data systems, and practical AI-assisted engineering.
+
+Most of my projects follow the same rule:
+
+> small code, clear contracts, real tests, and no claims without evidence.
