@@ -15,6 +15,21 @@ My usual design bias:
 
 ---
 
+## Collaboration
+
+I am currently looking for collaborators who can help with testing, hardware validation, examples, documentation review, and real-world feedback on embedded C projects.
+
+Main areas:
+
+- embedded C testing
+- MCU hardware validation
+- storage and power-loss testing
+- reliability and diagnostics
+- industrial/edge use cases
+- examples and integration feedback
+
+If you are working with firmware, MCU platforms, RTOS/bare-metal systems, or industrial devices and want to test or review any of these projects, feel free to reach out.
+
 ## Main projects
 
 ### 🗄️ loxdb — Deterministic embedded database for MCU/edge systems
