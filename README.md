@@ -101,6 +101,31 @@ Current scope includes checked span/arena primitives, Guard Block lifecycle trac
 
 ---
 
+### 🧬 loxc — Trainable C99 text codec for domain-specific payloads
+
+[`loxc`](https://github.com/Vanderhell/loxc) is an experimental trainable text codec written in **C99**.
+
+It is designed for cases where the developer already knows the type of text data being transmitted or stored — for example MQTT payloads, telemetry messages, logs, JSON-like records, protocol text, or other repetitive domain-specific data.
+
+Instead of trying to be a universal compressor, `loxc` lets you train a codec table from representative sample data, export that table, transfer it, and load it later in an application, tool, or embedded runtime.
+
+Core ideas:
+
+- frequency-based symbol selection
+- matrix-based symbol layout
+- nested submatrices for less frequent data
+- binary encoded output
+- trained lookup tables
+- predictable table-driven decoding
+- small C99 integration surface
+
+`loxc` is not intended to compete with `gzip`, `zstd`, `brotli`, or `lz4`. Those are mature general-purpose compression systems.
+
+The value of `loxc` is narrower: provide a small trainable codec option for developers who know their data and want a compact table-driven encoding path for specific text payloads.
+
+It is not encryption and not a universal archive format.
+
+---
 ## Project map
 
 | Project | Description | Tech |
@@ -108,6 +133,7 @@ Current scope includes checked span/arena primitives, Guard Block lifecycle trac
 | [loxdb](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. KV, time-series, and fixed-schema relational tables behind one C99 API. | C99 |
 | [loxdb_pro_docs](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the commercial `loxdb_pro` module set. | Docs / C API contracts |
 | [loxguard](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for supervised execution boundaries, failure events, policy decisions, and blackbox evidence. | C99 |
+| [loxc](https://github.com/Vanderhell/loxc) | Experimental trainable C99 text codec for domain-specific payloads using trained lookup tables, matrix-based symbol layout, nested submatrices, and binary encoded output. | C99 |
 | [micro-toolkit](https://github.com/Vanderhell/micro-toolkit) | Collection of small composable embedded C99 libraries. | C99 |
 | [embedded-guard libraries](#embedded-guard--safety-monitoring--recovery) | Health, watchdog, boot, panic, OTA, and flash support libraries. | C99 |
 | [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs. | C# |
