@@ -119,6 +119,7 @@ Core ideas:
 - predictable table-driven decoding
 - small C99 integration surface
 
+
 `loxc` is not intended to compete with `gzip`, `zstd`, `brotli`, or `lz4`. Those are mature general-purpose compression systems.
 
 The value of `loxc` is narrower: provide a small trainable codec option for developers who know their data and want a compact table-driven encoding path for specific text payloads.
