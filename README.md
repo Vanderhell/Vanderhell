@@ -127,6 +127,36 @@ The value of `loxc` is narrower: provide a small trainable codec option for deve
 It is not encryption and not a universal archive format.
 
 ---
+
+### ⏱️ loxbudget — Deterministic admission control for embedded operations
+
+[`loxbudget`](https://github.com/Vanderhell/loxbudget) is a small, heap-free **C99** library that decides whether an embedded operation should run — and at what level — based on configurable resource budgets, rate windows, and optional calibration.
+
+It provides a deterministic pre-flight gate in front of risky firmware work: MQTT publish, OTA update, flash write, log burst, debug dump, parser invocation, queue allocation, or any operation that must be degraded, delayed, rejected, or allowed under pressure.
+
+Core design:
+
+- deterministic `check / enter / leave` decisions per operation profile
+- no heap, no floats, no global mutable state (all state is caller-owned storage)
+- optional audit ring buffer for recent decisions
+- optional rate windows and lifetime limits
+- optional calibration and diagnostic strings
+- single-header amalgamated distribution option
+- stable public API starting at `v1.0.0` (semver)
+
+Typical use cases:
+
+- prevent MQTT storms from exhausting queue slots
+- block OTA when voltage or flash budget is unsafe
+- degrade logging under memory pressure
+- reject non-critical work during survival mode
+- enforce flash-write lifetime budgets
+
+`loxbudget` is not a scheduler, allocator, watchdog, logger, profiler, or RTOS replacement. Its value is narrower: an admission-control layer that gives firmware a deterministic answer to "may this operation run right now, and how?".
+
+**License:** MIT.
+
+---
 ## Project map
 
 | Project | Description | Tech |
@@ -135,6 +165,7 @@ It is not encryption and not a universal archive format.
 | [loxdb_pro_docs](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the commercial `loxdb_pro` module set. | Docs / C API contracts |
 | [loxguard](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for supervised execution boundaries, failure events, policy decisions, and blackbox evidence. | C99 |
 | [loxc](https://github.com/Vanderhell/loxc) | Experimental trainable C99 text codec for domain-specific payloads using trained lookup tables, matrix-based symbol layout, nested submatrices, and binary encoded output. | C99 |
+| [loxbudget](https://github.com/Vanderhell/loxbudget) | Deterministic, heap-free admission-control library for embedded firmware. Pre-flight gate for risky operations based on resource budgets, rate windows, and calibration. | C99 |
 | [micro-toolkit](https://github.com/Vanderhell/micro-toolkit) | Collection of small composable embedded C99 libraries. | C99 |
 | [embedded-guard libraries](#embedded-guard--safety-monitoring--recovery) | Health, watchdog, boot, panic, OTA, and flash support libraries. | C99 |
 | [IOBusMonitor](https://github.com/Vanderhell/IOBusMonitor) | Multi-protocol desktop tool for Modbus TCP/RTU and Siemens S7 PLCs. | C# |
@@ -142,7 +173,6 @@ It is not encryption and not a universal archive format.
 | [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue for embedded systems. | C99 |
 
 ---
-
 ## 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
 A collection of composable libraries sharing the same philosophy:
