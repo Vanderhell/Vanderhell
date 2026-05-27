@@ -101,6 +101,74 @@ Current scope includes checked span/arena primitives, Guard Block lifecycle trac
 
 ---
 
+### 🚨 loxalarm — Deterministic alarm-state core for embedded firmware
+
+[`loxalarm`](https://github.com/Vanderhell/loxalarm) is a small, heap-free **C99** alarm state-machine core for embedded firmware.
+
+It models the runtime lifecycle of one process alarm condition, including:
+
+- on-delay and off-delay handling
+- latching and acknowledge flow
+- shelving for maintenance or temporary suppression
+- reason flags and transition visibility
+- snapshot/restore support for caller-owned persistence
+
+`loxalarm` is designed for firmware that needs PLC-style alarm semantics without depending on a PLC vendor stack, HMI runtime, operating system, network protocol, or dynamic memory.
+
+It is not a safety-certified alarm system, historian, HMI, or OPC UA/MQTT/Modbus binding. Its value is narrower: a deterministic runtime alarm object that higher-level firmware, diagnostics, logging, persistence, or UI layers can consume.
+
+**License:** MIT.
+
+---
+
+### 🔁 loxseq — Power-loss-aware step sequencer for embedded C firmware
+
+[`loxseq`](https://github.com/Vanderhell/loxseq) is a small, heap-free **C99** step sequencer for embedded firmware that must survive resets or power loss.
+
+It checkpoints step progress to caller-provided storage and computes a recovery verdict on reboot.
+
+Core ideas:
+
+- CRC-protected persistent checkpoint record
+- per-step resume policy
+- conservative recovery downgrades
+- tick-driven execution using caller-provided `now_ms`
+- caller-owned state
+- no heap, globals, or floating point
+- optional branching via `loxseq_set_next_step` and `LOXSEQ_STEP_BRANCH`
+
+Typical use cases include firmware workflows where restarting blindly is unsafe or wasteful: fill/heat/drain sequences, calibration flows, provisioning, controlled shutdown/startup flows, and multi-step maintenance procedures.
+
+`loxseq` is not an RTOS scheduler, workflow language, database, or general task engine. Its value is narrower: deterministic step execution with explicit reboot recovery semantics.
+
+**License:** MIT.
+
+---
+
+### 🔐 loxperm — Permissive / interlock evaluator for embedded firmware
+
+[`loxperm`](https://github.com/Vanderhell/loxperm) is a small, heap-free **C99** single-header library for evaluating permissives and interlocks.
+
+It evaluates named conditions and decides whether an action is allowed to start or must continue to be allowed.
+
+Core features:
+
+- explainable deny mask
+- first-out detection
+- qualifier times for conditions that must remain true for a duration
+- optional latching
+- maintenance bypass support
+- caller-owned state
+- no heap, no floating point, and no hidden mutable runtime state
+
+Typical use cases include pump starts, valve movement, actuator enable gates, machine interlocks, maintenance overrides, and process-control diagnostics where the firmware must explain exactly why an operation is blocked.
+
+`loxperm` is not a safety-certified interlock system or PLC replacement. Its value is narrower: deterministic, explainable permission logic for embedded C firmware.
+
+**License:** MIT.
+
+---
+
 ### 🧬 loxc — Trainable C99 text codec for domain-specific payloads
 
 [`loxc`](https://github.com/Vanderhell/loxc) is an experimental trainable text codec written in **C99**.
@@ -164,6 +232,9 @@ Typical use cases:
 | [loxdb](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. KV, time-series, and fixed-schema relational tables behind one C99 API. | C99 |
 | [loxdb_pro_docs](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the commercial `loxdb_pro` module set. | Docs / C API contracts |
 | [loxguard](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for supervised execution boundaries, failure events, policy decisions, and blackbox evidence. | C99 |
+| [loxalarm](https://github.com/Vanderhell/loxalarm) | Deterministic alarm-state core for embedded firmware. Handles on/off delays, latching, acknowledge flow, shelving, reason flags, and snapshot/restore support. | C99 |
+| [loxseq](https://github.com/Vanderhell/loxseq) | Power-loss-aware step sequencer for embedded firmware. Provides checkpointed step progress and reboot recovery/resume policy per step. | C99 |
+| [loxperm](https://github.com/Vanderhell/loxperm) | Heap-free permissive/interlock evaluator with explainable deny mask, first-out detection, qualifier times, latching, and maintenance bypass. | C99 |
 | [loxc](https://github.com/Vanderhell/loxc) | Experimental trainable C99 text codec for domain-specific payloads using trained lookup tables, matrix-based symbol layout, nested submatrices, and binary encoded output. | C99 |
 | [loxbudget](https://github.com/Vanderhell/loxbudget) | Deterministic, heap-free admission-control library for embedded firmware. Pre-flight gate for risky operations based on resource budgets, rate windows, and calibration. | C99 |
 | [micro-toolkit](https://github.com/Vanderhell/micro-toolkit) | Collection of small composable embedded C99 libraries. | C99 |
