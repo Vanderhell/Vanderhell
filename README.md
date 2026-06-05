@@ -1,48 +1,53 @@
 ## Hi, I'm Vanderhell 👋
 
-Industrial software and embedded systems developer focused on reliable tools for production, firmware, diagnostics, and edge systems.
+I build industrial software, embedded firmware tools, and small deterministic engines for systems that have to keep working when conditions are not ideal.
 
-I build small, focused C/C#/C++ libraries and applications for real-world use: embedded storage, runtime safety, industrial communication, monitoring, data acquisition, and practical AI-assisted development workflows.
+**LOX** means **Liquid Oxygen** — the brand name I use for my embedded and systems projects. For me, it stands for concentrated engineering: compact code, high pressure, clear contracts, and behavior that can be tested instead of guessed.
+
+My work is focused on practical C/C#/C++ tooling for production, diagnostics, firmware reliability, industrial communication, data acquisition, and edge systems. The common thread is simple: build tools that are small enough to understand, strict enough to trust, and useful outside of demos.
 
 My usual design bias:
 
-- predictable behavior
+- deterministic behavior
 - small integration surface
 - clear failure modes
 - zero or minimal dependencies
+- caller-owned state where possible
 - tests before claims
-- tools that solve real problems, not demo problems
+- real-world tooling over showcase code
 
 ---
 
 ## Collaboration
 
-I am currently looking for collaborators who can help with testing, hardware validation, examples, documentation review, and real-world feedback on embedded C projects.
+I am looking for people who can test, break, review, and validate embedded C projects on real hardware.
 
-Main areas:
+Useful feedback areas:
 
 - embedded C testing
-- MCU hardware validation
+- MCU and board-level validation
 - storage and power-loss testing
 - reliability and diagnostics
-- industrial/edge use cases
-- examples and integration feedback
+- industrial and edge use cases
+- examples, integration feedback, and documentation review
 
-If you are working with firmware, MCU platforms, RTOS/bare-metal systems, or industrial devices and want to test or review any of these projects, feel free to reach out.
+If you work with firmware, MCU platforms, RTOS/bare-metal systems, industrial devices, or constrained edge systems, I am interested in practical feedback — especially reports that include hardware, configuration, failure cases, and test evidence.
+
+---
 
 ## Main projects
 
 ### 🗄️ loxdb — Deterministic embedded database for MCU/edge systems
 
-![loxdb banner](https://github.com/Vanderhell/loxdb/raw/refs/heads/master/docs/banner.svg)
+[`loxdb`](https://github.com/Vanderhell/loxdb) is a compact **C99 embedded database** for firmware, dataloggers, controllers, and small edge runtimes.
 
-[`loxdb`](https://github.com/Vanderhell/loxdb) is a compact embedded database written in **C99** for firmware and small edge runtimes.
+It is built for cases where a full SQL database is too heavy, but raw files, ad-hoc structs, or fragile flash layouts are not enough.
 
-It combines three storage models behind one API surface:
+`loxdb` combines three storage models behind one API surface:
 
-- **KV** for configuration, cache entries, and TTL-backed state
-- **Time-series** for sensor samples and rolling telemetry
-- **Relational fixed-schema tables** for small indexed structured data
+- **KV storage** for configuration, cache entries, and TTL-backed state
+- **Time-series storage** for sensor samples, counters, and rolling telemetry
+- **Fixed-schema relational tables** for small indexed structured records
 
 Core design:
 
@@ -52,8 +57,9 @@ Core design:
 - RAM-only or storage-backed operation
 - optional WAL-backed persistence and recovery
 - embedded-first storage HAL
+- predictable behavior under constrained memory
 
-`loxdb` is not a tiny SQLite clone. SQLite is excellent, but targets a different operating point. `loxdb` is intentionally narrower: deterministic storage for constrained firmware, dataloggers, controllers, and small edge runtimes where predictable memory and a small integration surface matter more than SQL features.
+`loxdb` is not a tiny SQLite clone. SQLite is excellent, but it targets a different operating point. `loxdb` is intentionally narrower: deterministic storage for constrained firmware where predictable memory, small API surface, and recoverable writes matter more than SQL features.
 
 **License:** MIT open-source core.  
 **Commercial extension:** [`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs) contains public API-level documentation for the planned/commercial PRO module set.
@@ -64,7 +70,9 @@ Core design:
 
 [`loxdb_pro_docs`](https://github.com/Vanderhell/loxdb_pro_docs) documents the public integration-facing API for the commercial `loxdb_pro` layer.
 
-The PRO layer is designed for embedded products that need more than storage:
+The PRO layer is intended for embedded products that need more than local storage. It adds the production-facing pieces around the core database: validation, integrity checks, policy gates, observability, migration, transport, recovery planning, and host tooling.
+
+Planned/module areas include:
 
 - security and integrity
 - runtime safety validation
@@ -84,9 +92,9 @@ The public repository intentionally contains documentation only. The implementat
 
 [`loxguard`](https://github.com/Vanderhell/loxguard) is a lightweight **C99 guard-runtime** for embedded C.
 
-It introduces **Guard Blocks** and **Checked Guard Blocks**: explicit execution boundaries around risky code such as parsers, protocol handlers, optional modules, and recovery-sensitive routines.
+It introduces **Guard Blocks** and **Checked Guard Blocks**: explicit execution boundaries around risky firmware paths such as parsers, protocol handlers, optional modules, recovery-sensitive routines, and code that should never fail silently.
 
-Instead of only failing with an assert or watchdog reset, `loxguard` turns failures into structured runtime evidence:
+Instead of only failing with an assert or watchdog reset, `loxguard` turns unsafe execution states into structured runtime evidence:
 
 - lifecycle events
 - policy decisions
@@ -97,7 +105,7 @@ Instead of only failing with an assert or watchdog reset, `loxguard` turns failu
 
 Current scope includes checked span/arena primitives, Guard Block lifecycle tracking, failure reporting, policy decisions, local blackbox evidence, and host-tested integration paths.
 
-`loxguard` does not claim full memory safety for arbitrary C code and is not a safety-certified framework. Its value is narrower: make unsafe execution states easier to detect, record, and react to in small embedded C systems.
+`loxguard` does not claim full memory safety for arbitrary C code and is not a safety-certified framework. Its value is narrower and practical: make risky execution paths easier to detect, record, inspect, and react to in small embedded C systems.
 
 ---
 
@@ -105,7 +113,9 @@ Current scope includes checked span/arena primitives, Guard Block lifecycle trac
 
 [`loxalarm`](https://github.com/Vanderhell/loxalarm) is a small, heap-free **C99** alarm state-machine core for embedded firmware.
 
-It models the runtime lifecycle of one process alarm condition, including:
+It models the lifecycle of one process alarm condition with behavior that is usually scattered across application code, HMI logic, PLC glue, or vendor-specific runtime layers.
+
+It includes:
 
 - on-delay and off-delay handling
 - latching and acknowledge flow
@@ -123,9 +133,9 @@ It is not a safety-certified alarm system, historian, HMI, or OPC UA/MQTT/Modbus
 
 ### 🔁 loxseq — Power-loss-aware step sequencer for embedded C firmware
 
-[`loxseq`](https://github.com/Vanderhell/loxseq) is a small, heap-free **C99** step sequencer for embedded firmware that must survive resets or power loss.
+[`loxseq`](https://github.com/Vanderhell/loxseq) is a small, heap-free **C99** step sequencer for firmware workflows that must survive reset, brownout, watchdog recovery, or power loss.
 
-It checkpoints step progress to caller-provided storage and computes a recovery verdict on reboot.
+It checkpoints step progress to caller-provided storage and computes a recovery verdict on reboot, so firmware does not have to blindly restart a physical process from the beginning.
 
 Core ideas:
 
@@ -137,7 +147,7 @@ Core ideas:
 - no heap, globals, or floating point
 - optional branching via `loxseq_set_next_step` and `LOXSEQ_STEP_BRANCH`
 
-Typical use cases include firmware workflows where restarting blindly is unsafe or wasteful: fill/heat/drain sequences, calibration flows, provisioning, controlled shutdown/startup flows, and multi-step maintenance procedures.
+Typical use cases include fill/heat/drain sequences, calibration flows, provisioning, controlled shutdown/startup flows, and multi-step maintenance procedures.
 
 `loxseq` is not an RTOS scheduler, workflow language, database, or general task engine. Its value is narrower: deterministic step execution with explicit reboot recovery semantics.
 
@@ -149,7 +159,7 @@ Typical use cases include firmware workflows where restarting blindly is unsafe 
 
 [`loxperm`](https://github.com/Vanderhell/loxperm) is a small, heap-free **C99** single-header library for evaluating permissives and interlocks.
 
-It evaluates named conditions and decides whether an action is allowed to start or must continue to be allowed.
+It gives firmware a deterministic answer to a simple but important question: **is this action allowed to start, and is it still allowed to continue?**
 
 Core features:
 
@@ -173,7 +183,7 @@ Typical use cases include pump starts, valve movement, actuator enable gates, ma
 
 [`loxc`](https://github.com/Vanderhell/loxc) is an experimental trainable text codec written in **C99**.
 
-It is designed for cases where the developer already knows the type of text data being transmitted or stored — for example MQTT payloads, telemetry messages, logs, JSON-like records, protocol text, or other repetitive domain-specific data.
+It is designed for cases where the developer already knows the shape of the transmitted or stored text: MQTT payloads, telemetry messages, logs, JSON-like records, protocol text, or repetitive domain-specific data.
 
 Instead of trying to be a universal compressor, `loxc` lets you train a codec table from representative sample data, export that table, transfer it, and load it later in an application, tool, or embedded runtime.
 
@@ -187,7 +197,6 @@ Core ideas:
 - predictable table-driven decoding
 - small C99 integration surface
 
-
 `loxc` is not intended to compete with `gzip`, `zstd`, `brotli`, or `lz4`. Those are mature general-purpose compression systems.
 
 The value of `loxc` is narrower: provide a small trainable codec option for developers who know their data and want a compact table-driven encoding path for specific text payloads.
@@ -200,12 +209,13 @@ It is not encryption and not a universal archive format.
 
 [`loxbudget`](https://github.com/Vanderhell/loxbudget) is a small, heap-free **C99** library that decides whether an embedded operation should run — and at what level — based on configurable resource budgets, rate windows, and optional calibration.
 
-It provides a deterministic pre-flight gate in front of risky firmware work: MQTT publish, OTA update, flash write, log burst, debug dump, parser invocation, queue allocation, or any operation that must be degraded, delayed, rejected, or allowed under pressure.
+It works as a deterministic pre-flight gate in front of risky firmware work: MQTT publish, OTA update, flash write, log burst, debug dump, parser invocation, queue allocation, or any operation that must be degraded, delayed, rejected, or allowed under pressure.
 
 Core design:
 
 - deterministic `check / enter / leave` decisions per operation profile
-- no heap, no floats, no global mutable state (all state is caller-owned storage)
+- no heap, no floats, no global mutable state
+- caller-owned storage
 - optional audit ring buffer for recent decisions
 - optional rate windows and lifetime limits
 - optional calibration and diagnostic strings
@@ -225,6 +235,7 @@ Typical use cases:
 **License:** MIT.
 
 ---
+
 ## Project map
 
 | Project | Description | Tech |
@@ -244,13 +255,14 @@ Typical use cases:
 | [iotspool](https://github.com/Vanderhell/iotspool) | Persistent store-and-forward MQTT queue for embedded systems. | C99 |
 
 ---
+
 ## 🔧 micro-toolkit — Modular C99 libraries for embedded systems
 
-A collection of composable libraries sharing the same philosophy:
+A collection of composable embedded libraries sharing the same philosophy:
 
 > no heap, no dependencies, no code generation — just `#include` and go.
 
-### Toolkit modules
+Toolkit modules:
 
 - [`microsh`](https://github.com/Vanderhell/microsh) — debug shell with history and tab completion.
 - [`microlog`](https://github.com/Vanderhell/microlog) — multi-backend structured logging.
