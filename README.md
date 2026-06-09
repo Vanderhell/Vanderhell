@@ -88,6 +88,33 @@ The public repository intentionally contains documentation only. The implementat
 
 ---
 
+### 🚀 loxboot — C99 zero-heap bootloader core for embedded firmware
+
+[`loxboot`](https://github.com/Vanderhell/loxboot) is a compact **C99 bootloader core** for bare-metal MCUs and embedded firmware that need predictable boot, update, and recovery behavior.
+
+It is built around a portable core with target-specific behavior isolated behind adapter boundaries.
+
+Core scope:
+
+- A/B slot boot model
+- boot state validation
+- CRC32-backed state records
+- UART update transport
+- rollback-oriented boot flow
+- explicit platform handoff boundary
+- caller-provided flash, clock, and platform integration
+- zero heap and no external runtime dependencies
+
+`loxboot` is intentionally not presented as a production-ready universal bootloader. Its value is narrower: provide a small, auditable bootloader core that can be adapted, tested, and hardened for specific MCU targets.
+
+Current practical direction includes STM32-style Cortex-M targets and ESP32-S3, while the core is kept MCU-agnostic.
+
+Known open areas include target-specific flash layout validation, erase behavior, hardware handoff/reboot validation, power-loss testing, and production-grade signing/evidence before deployment.
+
+**License:** MIT.
+
+---
+
 ### 🛡️ loxguard — Guard Blocks for embedded C firmware
 
 [`loxguard`](https://github.com/Vanderhell/loxguard) is a lightweight **C99 guard-runtime** for embedded C.
@@ -242,6 +269,7 @@ Typical use cases:
 |---|---|---|
 | [loxdb](https://github.com/Vanderhell/loxdb) | Deterministic embedded database for constrained systems and microcontrollers. KV, time-series, and fixed-schema relational tables behind one C99 API. | C99 |
 | [loxdb_pro_docs](https://github.com/Vanderhell/loxdb_pro_docs) | Public API-level documentation for the commercial `loxdb_pro` module set. | Docs / C API contracts |
+| [loxboot](https://github.com/Vanderhell/loxboot) | C99 zero-heap bootloader core for embedded firmware. A/B slot model, boot state validation, UART update transport, rollback-oriented boot flow, and platform handoff boundary. | C99 |
 | [loxguard](https://github.com/Vanderhell/loxguard) | Embedded C guard-runtime for supervised execution boundaries, failure events, policy decisions, and blackbox evidence. | C99 |
 | [loxalarm](https://github.com/Vanderhell/loxalarm) | Deterministic alarm-state core for embedded firmware. Handles on/off delays, latching, acknowledge flow, shelving, reason flags, and snapshot/restore support. | C99 |
 | [loxseq](https://github.com/Vanderhell/loxseq) | Power-loss-aware step sequencer for embedded firmware. Provides checkpointed step progress and reboot recovery/resume policy per step. | C99 |
