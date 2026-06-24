@@ -1,4 +1,4 @@
-## Hi, I'm Vanderhell 👋
+## Hi, I'm Vanderhell 👋 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/U4Q721ZX4J)
 
 I build industrial software, embedded firmware tools, and small deterministic engines for systems that have to keep working when conditions are not ideal.
 
