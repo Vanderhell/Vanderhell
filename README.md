@@ -549,7 +549,7 @@ Small utilities for writing safer and more debuggable embedded C.
 - [`defer`](https://github.com/Vanderhell/defer) — automatic resource cleanup for C via `DEFER()` macro.
 - [`cguard`](https://github.com/Vanderhell/cguard) — scope guards and result types for C.
 - [`safemath`](https://github.com/Vanderhell/safemath) — overflow-checked arithmetic and buffer sizing helpers.
-- [`microcrypt`](https://github.com/Vanderhell/microcrypt) — SHA-256, HMAC-SHA256, AES-128 ECB/CBC.
+- [`microcrypt`](https://github.com/Vanderhell/microcrypt) — SHA-256, HMAC-SHA256, AES-128 ECB/CBC/GCM.
 - [`microdh`](https://github.com/Vanderhell/microdh) — minimal X25519 key exchange for embedded systems.
 - [`microtest`](https://github.com/Vanderhell/microtest) — single-header C test framework.
 
