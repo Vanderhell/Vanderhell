@@ -27,7 +27,7 @@ My usual design bias:
 
 ---
 
-## LOX — Liquid Oxygen
+## LOX — Liquid Oxygen for Embedded Systems
 
 **LOX** is the technical brand for my embedded and systems projects. The name represents concentrated engineering: compact code, high pressure, predictable behavior, and systems that can be tested instead of guessed.
 
@@ -50,6 +50,8 @@ The LOX family consists of focused libraries rather than one large framework:
 ## Embedded C99 projects
 
 - [`axiom-one`](https://github.com/Vanderhell/axiom-one) — focused deterministic primitives for common embedded problems
+- [`GrayGyre`](https://github.com/Vanderhell/GrayGyre) — allocation-free Gray-code data-placement primitive for spreading adjacent indices across logical cells
+- [`skipspace`](https://github.com/Vanderhell/skipspace) — heap-free traversal and subtree skipping for large implicit constrained search spaces
 - [`micro-toolkit`](https://github.com/Vanderhell/micro-toolkit) — collection of small, composable embedded C99 libraries
 - [`micronet`](https://github.com/Vanderhell/micronet) — LAN-first messaging for embedded nodes and desktop diagnostics
 - [`uMesh`](https://github.com/Vanderhell/uMesh) — lightweight ESP32 mesh networking over raw 802.11
@@ -127,4 +129,3 @@ Useful contributions include:
 - portability feedback
 - code and API review
 - documentation and example improvements
-
