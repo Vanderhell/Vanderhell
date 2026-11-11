@@ -52,6 +52,12 @@ The LOX family consists of focused libraries rather than one large framework:
 - [`axiom-one`](https://github.com/Vanderhell/axiom-one) — focused deterministic primitives for common embedded problems
 - [`GrayGyre`](https://github.com/Vanderhell/GrayGyre) — allocation-free Gray-code data-placement primitive for spreading adjacent indices across logical cells
 - [`skipspace`](https://github.com/Vanderhell/skipspace) — heap-free traversal and subtree skipping for large implicit constrained search spaces
+- [`ImplicitNet`](https://github.com/Vanderhell/ImplicitNet) — allocation-free deterministic implicit networks with reversible mappings and routing
+- [`Orbitra`](https://github.com/Vanderhell/Orbitra) — deterministic reversible traversal of bounded integer domains
+- [`microcodec`](https://github.com/Vanderhell/microcodec) — heap-free C99 compression codecs for embedded sensor and binary data
+- [`Runa`](https://github.com/Vanderhell/Runa) — bounded MCU execution runtime for host-defined hardware jobs
+- [`Aervault`](https://github.com/Vanderhell/Aervault) — allocation-free persistent records for microcontrollers
+- [`SILITRA`](https://github.com/Vanderhell/SILITRA) — ESP32 hardware identity manifests and deterministic fingerprints
 - [`micro-toolkit`](https://github.com/Vanderhell/micro-toolkit) — collection of small, composable embedded C99 libraries
 - [`micronet`](https://github.com/Vanderhell/micronet) — LAN-first messaging for embedded nodes and desktop diagnostics
 - [`uMesh`](https://github.com/Vanderhell/uMesh) — lightweight ESP32 mesh networking over raw 802.11
@@ -90,6 +96,29 @@ The LOX family consists of focused libraries rather than one large framework:
 - [`microcrypt`](https://github.com/Vanderhell/microcrypt) — SHA-256, HMAC-SHA256, and AES-128 ECB/CBC/GCM
 - [`microdh`](https://github.com/Vanderhell/microdh) — minimal X25519 key exchange
 
+### Deterministic math, signal, and data primitives
+
+- [`SequenceState`](https://github.com/Vanderhell/SequenceState) — fixed-size C11 primitives for reversible traces and composable ordered ranges
+- [`EquiShift`](https://github.com/Vanderhell/EquiShift) — deterministic constraint-preserving transfers for embedded systems
+- [`BoundedReversiblePermutation`](https://github.com/Vanderhell/BoundedReversiblePermutation) — seeded reversible permutation for bounded integer domains
+- [`BoundedReversibleCycle`](https://github.com/Vanderhell/BoundedReversibleCycle) — reversible full-cycle traversal of bounded integer domains
+- [`Reverspace`](https://github.com/Vanderhell/Reverspace) — deterministic reversible traversal of implicit state spaces
+- [`CubeRank`](https://github.com/Vanderhell/CubeRank) — reversible mapping between centered signed 3D coordinates and integer indices
+- [`MobiusTrajectory`](https://github.com/Vanderhell/MobiusTrajectory) — reversible 256-bit linear transform over GF(2)
+- [`Cyclaxis`](https://github.com/Vanderhell/Cyclaxis) — exact endpoint arithmetic for paths whose directions are roots of unity
+- [`signumera`](https://github.com/Vanderhell/signumera) — embedded filtering, pulse analysis, windowing, and signal measurements
+- [`estimora`](https://github.com/Vanderhell/estimora) — bounded sensor statistics including histograms, quantiles, entropy, and medians
+- [`certivox`](https://github.com/Vanderhell/certivox) — CRC profiles, streaming CRC, Hamming codes, and SECDED error correction
+- [`binavex`](https://github.com/Vanderhell/binavex) — bit masks, permutations, Gray coding, parity, and bitset operations
+- [`stabilora`](https://github.com/Vanderhell/stabilora) — bounded signal clamping, debounce, qualification, and timeout primitives
+- [`vectrava`](https://github.com/Vanderhell/vectrava) — fixed-point vectors, transforms, quaternions, and spatial calculations
+- [`chronovex`](https://github.com/Vanderhell/chronovex) — portable duration, timer, deadline, and remaining-time calculations
+- [`angulora`](https://github.com/Vanderhell/angulora) — deterministic fixed-point angle, phase, and motor-angle calculations
+- [`claudaris`](https://github.com/Vanderhell/claudaris) — checked arithmetic, saturation, ranges, alignment, and time conversion
+- [`quantelis`](https://github.com/Vanderhell/quantelis) — fixed-point scaling, interpolation, smoothing, and numerical transforms
+- [`modulenta`](https://github.com/Vanderhell/modulenta) — bounded indexing, representation transforms, selection, and compact state helpers
+- [`locadex`](https://github.com/Vanderhell/locadex) — grid, voxel, Morton, and bounded spatial-index calculations
+
 ---
 
 ## Industrial, data, and desktop projects
@@ -102,12 +131,15 @@ The LOX family consists of focused libraries rather than one large framework:
 
 ### Data and file engines
 
+- [`Nexum`](https://github.com/Vanderhell/Nexum) — experimental programmable communication fabric built from bounded deterministic primitives
+- [`Compost`](https://github.com/Vanderhell/Compost) — experimental deterministic artificial-life and complex-systems simulator
 - [`num8`](https://github.com/Vanderhell/num8) — O(1) membership engine for eight-digit numbers
 - [`num8-lup`](https://github.com/Vanderhell/num8-lup) — low-bandwidth update propagation protocol
 - [`IronFamily.FileEngine`](https://github.com/Vanderhell/IronFamily.FileEngine) — binary IoT file engines and tooling
 
 ### .NET
 
+- [`Basalt.NET`](https://github.com/Vanderhell/Basalt.NET) — durable background jobs, scheduling, and workflows with embedded or SQL Server storage
 - [`MultiGpuHelper`](https://github.com/Vanderhell/MultiGpuHelper) — scheduling compute workloads across multiple GPUs
 - [`CrudFramework`](https://github.com/Vanderhell/CrudFramework) — lightweight CRUD framework for .NET applications
 
